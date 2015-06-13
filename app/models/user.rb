@@ -6,8 +6,10 @@ class User < ActiveRecord::Base
   validates :email, presence: true, length: { maximum: 255 }, uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, length: { minimum: 6 }
-  def feed
-    Post.where("user_id = ?", id)
-  end
+  
+  # def feed
+  #   # Post.where("user_id = ?", id)
+  #   Post.all
+  # end
 
 end

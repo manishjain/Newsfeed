@@ -3,4 +3,8 @@ class Post < ActiveRecord::Base
 	default_scope -> { order(created_at: :desc) }
 	validates :user_id, presence: true
 	validates :content, length: { maximum: 200 }, presence: true
+
+	def self.getFeed
+		Post.all
+	end
 end
