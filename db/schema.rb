@@ -20,6 +20,9 @@ ActiveRecord::Schema.define(version: 20150613152155) do
     t.datetime "updated_at",               null: false
   end
 
+  add_index "posts", ["user_id", "created_at"], name: "index_posts_on_user_id_and_created_at", using: :btree
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "name",            limit: 255
     t.string   "email",           limit: 255
