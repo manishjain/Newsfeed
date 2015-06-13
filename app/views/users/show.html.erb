@@ -9,9 +9,9 @@
   <div class="col-md-8">
     <% if @user.posts.any? %>
       <h3>Posts (<%= @user.posts.count %>)</h3>
-      <ol class="microposts">
+      <ul class="posts">
         <%= render @posts %>
-      </ol>
+      </ul>
       <%= will_paginate @posts %>
     <% end %>
   </div>
