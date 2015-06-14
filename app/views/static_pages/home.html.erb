@@ -8,11 +8,19 @@
         <%= render 'shared/post_form' %>
       </section>
     </aside>
-    <div class="col-md-8">
+    <div class="col-md-8" id="news_feed">
       <h3>News Feed</h3>
       <%= render 'shared/feed' %>
     </div>
   </div>
+  <script type="text/javascript">
+  setTimeout(updateHome, 15000);
+    function updateHome(){
+      var page_param = window.location.search;
+      $.getScript("/static_pages/home.js" + page_param)
+      setTimeout(updateHome, 15000);
+    }
+  </script>
 <% else %>
 	<h1>Welcome to FACEBOOK</h1>
 	  <h2>
