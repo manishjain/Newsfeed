@@ -24,7 +24,9 @@ class LikesController < ApplicationController
   # POST /likes
   # POST /likes.json
   def create
-    like_present = Like.where(like_params)
+    like_check = like_params
+    like_check[:user_id] =  current_user.id
+    like_present = Like.where(like_check)
     if like_present.empty?
       @like = current_user.likes.build(like_params)
       # @like = Like.new(like_params)
