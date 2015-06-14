@@ -39,7 +39,7 @@ class PostsController < ApplicationController
 
     if @post.save
       flash[:success] = "Post created!"
-      redirect_to root_url
+      redirect_to request.referrer || root_url
     else
       @feed_items = Post.getFeed.paginate(page: params[:page], per_page: PER_PAGE)
       render 'static_pages/home'
