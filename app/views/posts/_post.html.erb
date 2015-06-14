@@ -2,9 +2,14 @@
   <span class="user"><%= link_to (fa_icon "user 2x",  text: post.user.name), post.user %></span>
   <span class="content"><%= post.content %></span>
   <% if(post.liked_by(current_user)) %>
-    <span class="unlike"><%= link_to (fa_icon "thumbs-down",  text: "unlike"), post.user %></span>
+    <span class="unlike"><%= link_to (fa_icon "thumbs-down",  text: "unlike"), post.get_liked_by(current_user), method: :delete %></span>
   <% else %>
-    <span class="like"><%= link_to (fa_icon "thumbs-up",  text: "like"), post.user %></span>
+    <span class="like"><%= link_to (fa_icon "thumbs-up",  text: "like"), likes_path(like: {target_type: 'post', target_id: post.id}), method: :post %></span>
+  <% end %>
+  <% if !post.users.empty? %>
+    <span class="likelist">
+    <%= post.users.collect{|i| link_to(i.name, i)}.join(', ').html_safe %> liked this
+    </span>
   <% end %>
   <span class="timestamp">
     Posted <%= time_ago_in_words(post.created_at) %> ago.

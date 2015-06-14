@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
 	default_scope -> { order(updated_at: :desc) }
 	validates :user_id, presence: true
 	validates :content, length: { maximum: 200 }, presence: true
-	has_many :likes, -> { where(target_type: 'post') },  :foreign_key => :target_id
+	has_many :likes, -> { where(target_type: 'post') },  :foreign_key => :target_id, dependent: :destroy
 	has_many :users, through: :likes
 	has_many :comments, -> { where(target_type: 'comment') },  :foreign_key => :target_id
 
@@ -17,6 +17,10 @@ class Post < ActiveRecord::Base
 		else
 			false
 		end
+	end
+
+	def get_liked_by user
+		likes.where(user: user).first
 	end
 
 end

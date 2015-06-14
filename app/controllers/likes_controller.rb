@@ -24,11 +24,12 @@ class LikesController < ApplicationController
   # POST /likes
   # POST /likes.json
   def create
-    @like = Like.new(like_params)
+    @like = current_user.likes.build(like_params)
+    # @like = Like.new(like_params)
 
     respond_to do |format|
       if @like.save
-        format.html { redirect_to @like, notice: 'Like was successfully created.' }
+        format.html { redirect_to request.referrer || root_url }
         format.json { render :show, status: :created, location: @like }
       else
         format.html { render :new }
@@ -56,7 +57,7 @@ class LikesController < ApplicationController
   def destroy
     @like.destroy
     respond_to do |format|
-      format.html { redirect_to likes_url, notice: 'Like was successfully destroyed.' }
+      format.html { redirect_to request.referrer || root_url }
       format.json { head :no_content }
     end
   end
@@ -69,6 +70,6 @@ class LikesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def like_params
-      params.require(:like).permit(:target_id)
+      params.require(:like).permit(:target_id, :target_type)
     end
 end
