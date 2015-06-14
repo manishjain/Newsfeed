@@ -24,6 +24,12 @@
     <% post.comments.each do |com| %>
       <span class="commentlist">
         <%= fa_icon "user",  text: com.user.name %>: <%= com.content %>
+        <span class="timestamp">
+        Commented <%= time_ago_in_words(com.created_at) %> ago.
+        <% if current_user?(com.user) %>
+          <%= link_to "delete", com, method: :delete, data: { confirm: "You sure?" } %>
+        <% end %>
+        </span>
         <% if(com.liked_by(current_user)) %>
         <span class="unlike"><%= link_to (fa_icon "thumbs-down", text: "unlike"), com.get_liked_by(current_user), method: :delete %></span>
         <% else %>
