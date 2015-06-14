@@ -9,16 +9,21 @@
       <%= render 'shared/post_form' %>
     </section>
   </aside>
-  <div class="col-md-8">
-    <% if @user.posts.any? %>
-      <h3>Posts (<%= @user.posts.count %>)</h3>
-      <ul class="posts">
-        <%= render @posts %>
-      </ul>
-      <%= will_paginate @posts %>
+  <div class="col-md-8" id="my_posts" data-user-id="<%=  @user.id %>">
+    <% if @feed_items.any? %>
+      <h3>My Posts</h3>
+      <%= render 'shared/feed' %>
     <% end %>
   </div>
 </div>
-
+<script type="text/javascript">
+  setTimeout(updateMyPost, 15000);
+    function updateMyPost(){
+      var user_id = $('#my_posts').attr('data-user-id');
+      var page_param = window.location.search;
+      $.getScript("/users/" + user_id + ".js" + page_param)
+      setTimeout(updateMyPost, 15000);
+  }
+</script>
 
 

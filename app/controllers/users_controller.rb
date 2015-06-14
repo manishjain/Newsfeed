@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @post = current_user.posts.build 
     @comment = current_user.comments.build 
-    @posts = @user.posts.paginate(page: params[:page], :per_page => PER_PAGE)
+    @feed_items = @user.posts.paginate(page: params[:page], :per_page => PER_PAGE)
   end
 
   # GET /users/new
