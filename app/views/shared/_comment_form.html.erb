@@ -1,0 +1,9 @@
+<%= form_for(@comment, html: { id: "#{local_assigns[:target_type]}_#{local_assigns[:target_id]}", style: "display:none" }) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.hidden_field :target_type, :value => local_assigns[:target_type] %>
+    <%= f.hidden_field :target_id, :value => local_assigns[:target_id] %>
+    <%= f.text_area :content, placeholder: "Write comment" %>
+  </div>
+  <%= f.submit "Comment", class: "btn btn-primary" %>
+<% end %>

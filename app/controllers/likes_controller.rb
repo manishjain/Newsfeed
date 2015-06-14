@@ -24,17 +24,22 @@ class LikesController < ApplicationController
   # POST /likes
   # POST /likes.json
   def create
-    @like = current_user.likes.build(like_params)
-    # @like = Like.new(like_params)
+    like_present = Like.where(like_params)
+    if like_present.empty?
+      @like = current_user.likes.build(like_params)
+      # @like = Like.new(like_params)
 
-    respond_to do |format|
-      if @like.save
-        format.html { redirect_to request.referrer || root_url }
-        format.json { render :show, status: :created, location: @like }
-      else
-        format.html { render :new }
-        format.json { render json: @like.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @like.save
+          format.html { redirect_to request.referrer || root_url }
+          format.json { render :show, status: :created, location: @like }
+        else
+          format.html { render :new }
+          format.json { render json: @like.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to request.referrer
     end
   end
 
