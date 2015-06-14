@@ -25,17 +25,25 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    @comment = Comment.new(comment_params)
-
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
-        format.json { render :show, status: :created, location: @comment }
-      else
-        format.html { render :new }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
+    @comment = current_user.comments.build(comment_params)
+    
+    # respond_to do |format|
+    #   if @comment.save
+    #     format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
+    #     format.json { render :show, status: :created, location: @comment }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @comment.errors, status: :unprocessable_entity }
+    #   end
+    # end
+    if @comment.save
+      flash[:success] = "Comment Posted!"
+      redirect_to root_url
+    else
+      @feed_items = Post.getFeed.paginate(page: params[:page], per_page: 2)
+      render 'static_pages/home'
     end
+
   end
 
   # PATCH/PUT /comments/1
