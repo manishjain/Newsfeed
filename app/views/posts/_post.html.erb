@@ -23,7 +23,7 @@
   <% if !post.comments.empty? %>
     <% post.comments.each do |com| %>
       <span class="commentlist">
-        <%= fa_icon "user",  text: com.user.name %>: <%= com.content %>
+        <%= link_to (fa_icon "user",  text: com.user.name), post.user %>
         <span class="timestamp">
         Commented <%= time_ago_in_words(com.created_at) %> ago.
         <% if current_user?(com.user) %>
@@ -38,6 +38,12 @@
         <span class="comment"><%= link_to (fa_icon "comment", text: "comment"), "#", 
   onclick: "$('#comment_#{com.id}').toggle();" %></span>
         <%= render 'shared/comment_form', target_type: 'comment', target_id: com.id %>
+        <span class="content"><%= com.content %></span>
+        <% if !com.users.empty? %>
+          <span class="likelist">
+            <%= com.users.collect{|i| link_to(i.name, i)}.join(', ').html_safe %> liked this
+          </span>
+        <% end %>
       </span>
     <% end %>
   <% end %>
