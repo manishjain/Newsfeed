@@ -8,7 +8,7 @@ class Post < ActiveRecord::Base
 	has_many :comments, -> { where(target_type: 'post') },  :foreign_key => :target_id, dependent: :destroy
 
 	def self.getFeed
-		Post.includes(:likes, :users)
+		Post.includes(:likes, :users, comments: [:likes, :comments, :users])
 	end
 	
 	def liked_by user
