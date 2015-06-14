@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.paginate(page: params[:page], :per_page => 2)
+    @users = User.paginate(page: params[:page], :per_page => PER_PAGE)
   end
 
   # GET /users/1
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @post = current_user.posts.build 
     @comment = current_user.comments.build 
-    @posts = @user.posts.paginate(page: params[:page], :per_page => 2)
+    @posts = @user.posts.paginate(page: params[:page], :per_page => PER_PAGE)
   end
 
   # GET /users/new

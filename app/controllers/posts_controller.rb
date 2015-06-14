@@ -41,7 +41,7 @@ class PostsController < ApplicationController
       flash[:success] = "Post created!"
       redirect_to root_url
     else
-      @feed_items = Post.getFeed.paginate(page: params[:page], per_page: 2)
+      @feed_items = Post.getFeed.paginate(page: params[:page], per_page: PER_PAGE)
       render 'static_pages/home'
     end
 
