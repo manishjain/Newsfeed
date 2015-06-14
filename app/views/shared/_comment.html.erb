@@ -1,0 +1,23 @@
+  <span class="commentlist">
+    <%= link_to (fa_icon "user",  text: comment.user.name), comment.user %>
+    <span class="timestamp">
+    Commented <%= time_ago_in_words(comment.created_at) %> ago.
+    <% if current_user?(comment.user) %>
+      <%= link_to "delete", comment, method: :delete, data: { confirm: "You sure?" } %>
+    <% end %>
+    </span>
+    <% if(comment.liked_by(current_user)) %>
+    <span class="unlike"><%= link_to (fa_icon "thumbs-down", text: "unlike"), comment.get_liked_by(current_user), method: :delete %></span>
+    <% else %>
+      <span class="like"><%= link_to (fa_icon "thumbs-up", text: "like"), likes_path(like: {target_type: 'comment', target_id: comment.id}), method: :post %></span>
+    <% end %>
+    <span class="comment"><%= link_to (fa_icon "comment", text: "comment"), "#", 
+onclick: "$('#comment_#{comment.id}').toggle();" %></span>
+    <%= render 'shared/comment_form', target_type: 'comment', target_id: comment.id %>
+    <span class="content"><%= comment.content %></span>
+    <% if !comment.users.empty? %>
+      <span class="likelist">
+        <%= comment.users.collect{|i| link_to(i.name, i)}.join(', ').html_safe %> liked this
+      </span>
+    <% end %>
+  </span>

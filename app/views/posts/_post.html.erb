@@ -20,31 +20,8 @@
     <%= post.users.collect{|i| link_to(i.name, i)}.join(', ').html_safe %> liked this
     </span>
   <% end %>
-  <% if !post.comments.empty? %>
-    <% post.comments.each do |com| %>
-      <span class="commentlist">
-        <%= link_to (fa_icon "user",  text: com.user.name), post.user %>
-        <span class="timestamp">
-        Commented <%= time_ago_in_words(com.created_at) %> ago.
-        <% if current_user?(com.user) %>
-          <%= link_to "delete", com, method: :delete, data: { confirm: "You sure?" } %>
-        <% end %>
-        </span>
-        <% if(com.liked_by(current_user)) %>
-        <span class="unlike"><%= link_to (fa_icon "thumbs-down", text: "unlike"), com.get_liked_by(current_user), method: :delete %></span>
-        <% else %>
-          <span class="like"><%= link_to (fa_icon "thumbs-up", text: "like"), likes_path(like: {target_type: 'comment', target_id: com.id}), method: :post %></span>
-        <% end %>
-        <span class="comment"><%= link_to (fa_icon "comment", text: "comment"), "#", 
-  onclick: "$('#comment_#{com.id}').toggle();" %></span>
-        <%= render 'shared/comment_form', target_type: 'comment', target_id: com.id %>
-        <span class="content"><%= com.content %></span>
-        <% if !com.users.empty? %>
-          <span class="likelist">
-            <%= com.users.collect{|i| link_to(i.name, i)}.join(', ').html_safe %> liked this
-          </span>
-        <% end %>
-      </span>
-    <% end %>
+  <% if !post.comments.empty?
+    @comments = post.comments %>
+    <%= render partial: 'shared/comment', collection: @comments %>
   <% end %>
 </li>
