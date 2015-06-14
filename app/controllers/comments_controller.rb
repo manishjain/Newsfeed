@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:create, :destroy]
 
   # GET /comments
   # GET /comments.json
@@ -67,8 +68,15 @@ class CommentsController < ApplicationController
       @comment = Comment.find(params[:id])
     end
 
+    def logged_in_user
+      unless logged_in?
+        flash[:danger] = "Please log in."
+        redirect_to login_url
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:content, :target_id)
+      params.require(:comment).permit(:content, :target_id, :target_type)
     end
 end
