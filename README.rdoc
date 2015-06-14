@@ -1,30 +1,44 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Steps to configure
 
-Things you may want to cover:
+1. ruby version used is ruby 2.1.5p273
+2. gem install rails -v 4.2.0
+3. create a mysql database with name facebook. set username & password in database.yml in it.
+4. bundle exec rake db:migrate
+5. start rails server like for webrick bundle exec rails s
 
-* Ruby version
+* External libraries used
 
-* System dependencies
+1. Jquery
+2. Bootstrap
+3. fontawsome
+4. will-paginate for pagination
 
-* Configuration
+* Workflow
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instruction
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
-
-1. gem install rails -v 4.2.0
-2. create a mysql database with name facebook. set username & password in database.yml in it.
-3. rails generate scaffold User name:string email:string
+1. Go To Home page & do signup
+2. For already having account, do Login> (link on header)
+3. You can go to Account> Setting> to change account details
+4. You can go to Account> Logout> to signout
+5. You can go to Users> to see all registered users
+6. You can click on any user to see his posts with comments & likes.
+7. You can go to Home> to come back to home & see news feed (status with comments & likes from all users)
+8. You can go to Account> Profile> to see self posts with comments & likes.
+9. You can compose a new post from home or profile page which will be added in newsfeed.
+10. In the newsfeed you can do a number of actions
+  a) Like anyone's post
+  b) Unkile the already liked post by you
+  c) Comment on any post
+  d) Delete any comment on post done by you
+    (which will delete all comments & likes associated with it)
+  e) Like anyone's comment
+  f) Unlike the already liked comment by you
+  g) Comment on any comment (of any level)
+  h) Delete any comment on comment done by you
+    (which will delete all comments & likes associated with it)
+  i) Delete a post done by you 
+    (which will delete all comments & likes associated with it)
+11. There is a per page post limit which is now set as 3. To see previous newsfeed, you have to go to previous pages.
+12. Newsfeed will be updated after a fixed time interval(This time 15 seconds). This will update the post list with its likes & comments.
+13. Respective Backend validations are added in each post request.

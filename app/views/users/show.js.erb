@@ -1,0 +1,5 @@
+<% unless @feed_items.empty? %>
+  $('#my_posts').html("<h3>My Posts</h3><%=raw escape_javascript(render('shared/feed')) %>");
+<% end %>
+
+
