@@ -146,16 +146,25 @@ input {
   }
   .content {
     display: inline-block;
-    margin-left: 60px;
+    margin-left: 50px;
     img {
       display: block;
       padding: 5px 0;
     }
   }
+  .like {
+    display: inline-block;
+    margin-left: 40px;
+  }
+  .unlike {
+    display: inline-block;
+    margin-left: 40px;
+  }
+
   .timestamp {
     color: $gray-light;
     display: block;
-    margin-left: 60px;
+    margin-left: 50px;
   }
 }
 

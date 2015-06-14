@@ -1,6 +1,11 @@
 <li id="post-<%= post.id %>">
   <span class="user"><%= link_to (fa_icon "user 2x",  text: post.user.name), post.user %></span>
   <span class="content"><%= post.content %></span>
+  <% if(post.liked_by(current_user)) %>
+    <span class="unlike"><%= link_to (fa_icon "thumbs-down",  text: "unlike"), post.user %></span>
+  <% else %>
+    <span class="like"><%= link_to (fa_icon "thumbs-up",  text: "like"), post.user %></span>
+  <% end %>
   <span class="timestamp">
     Posted <%= time_ago_in_words(post.created_at) %> ago.
     <% if current_user?(post.user) %>
