@@ -14,6 +14,23 @@
     <%= post.users.collect{|i| link_to(i.name, i)}.join(', ').html_safe %> liked this
     </span>
   <% end %>
+  <% if !post.comments.empty? %>
+    <% post.comments.each do |com| %>
+      <span class="commentlist">
+        <%= fa_icon "user",  text: com.user.name %>: <%= com.content %>
+        <% if(com.liked_by(current_user)) %>
+        <span class="unlike"><%= link_to (fa_icon "thumbs-down", text: "unlike"), com.get_liked_by(current_user), method: :delete %></span>
+        <% else %>
+          <span class="like"><%= link_to (fa_icon "thumbs-up", text: "like"), likes_path(like: {target_type: 'comment', target_id: com.id}), method: :post %></span>
+        <% end %>
+        <span class="comment"><%= link_to (fa_icon "comment", text: "comment"), "#", 
+  onclick: "$('#comment_#{com.id}').toggle();" %></span>
+        <%= render 'shared/comment_form', target_type: 'comment', target_id: com.id %>
+      </span>
+    <% end %>
+  <% end %>
+
+
   <span class="timestamp">
     Posted <%= time_ago_in_words(post.created_at) %> ago.
     <% if current_user?(post.user) %>

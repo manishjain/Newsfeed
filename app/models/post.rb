@@ -5,7 +5,7 @@ class Post < ActiveRecord::Base
 	validates :content, length: { maximum: 200 }, presence: true
 	has_many :likes, -> { where(target_type: 'post') },  :foreign_key => :target_id, dependent: :destroy
 	has_many :users, through: :likes
-	has_many :comments, -> { where(target_type: 'comment') },  :foreign_key => :target_id
+	has_many :comments, -> { where(target_type: 'post') },  :foreign_key => :target_id
 
 	def self.getFeed
 		Post.includes(:likes, :users)
