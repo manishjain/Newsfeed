@@ -20,4 +20,8 @@ onclick: "$('#comment_#{comment.id}').toggle();" %></span>
         <%= comment.users.collect{|i| link_to(i.name, i)}.join(', ').html_safe %> liked this
       </span>
     <% end %>
+    <% if !comment.comments.empty?
+      @comments = comment.comments %>
+      <%= render partial: 'shared/comment', collection: @comments %>
+    <% end %>
   </span>
