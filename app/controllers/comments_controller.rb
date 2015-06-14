@@ -38,7 +38,7 @@ class CommentsController < ApplicationController
     # end
     if @comment.save
       flash[:success] = "Comment Posted!"
-      redirect_to root_url
+      redirect_to request.referrer || root_url
     else
       @feed_items = Post.getFeed.paginate(page: params[:page], per_page: 2)
       render 'static_pages/home'

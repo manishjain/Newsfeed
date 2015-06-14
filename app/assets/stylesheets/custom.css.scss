@@ -144,9 +144,14 @@ input {
     margin-top: 5em;
     padding-top: 0;
   }
-  .content {
+  .timestamp {
+    color: $gray-light;
     display: inline-block;
-    margin-left: 50px;
+    margin-left: 10px;
+  }
+  .content {
+    display: block;
+    margin-left: 0px;
     img {
       display: block;
       padding: 5px 0;
@@ -172,12 +177,6 @@ input {
   }
 
   .commentlist {
-    color: $gray-light;
-    display: block;
-    margin-left: 50px;
-  }
-
-  .timestamp {
     color: $gray-light;
     display: block;
     margin-left: 50px;
